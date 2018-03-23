@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <title>MLH Localhost Tweet Scraper</title>
 
+    <!--
+        We'll use the Axios library to make HTTP requests to our API.
+        In a larger frontend app, we'd probably build our assets with
+        Browserify or Webpack and call "require('axios')" to use this package.
+    -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
     <!-- development version of VueJS, includes helpful console warnings -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
@@ -14,9 +22,12 @@
 
 <div id="app">
     <p>{{ message }}</p>
+    <p @click="callAPI">Make HTTP request</p>
+    <p>Current API: {{ currentApiService.name }} ({{ currentApiService.url }})</p>
+    <p @click="switchApiService">Switch API</p>
 </div>
 
-<!-- include our VueJS code -->
+<!-- include our custom VueJS code -->
 <script src="js/app.js"></script>
 
 </body>
