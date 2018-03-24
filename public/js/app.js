@@ -19,7 +19,7 @@ new Vue({
       {
         id: 0,
         name: 'Node.js',
-        url: 'http://localhost:3001',
+        url: 'https://mlh-localhost-sample-node.herokuapp.com/',
         selected: true
       },
       {
@@ -28,7 +28,8 @@ new Vue({
         url: 'railsURL',
         selected: false
       }
-      // TODO: local server URLs as well
+      // TODO: local server URLs as well:
+      // http://localhost:3001
     ],
 
     tweets: [],
