@@ -13,8 +13,6 @@ Check out the guide here: https://vuejs.org/v2/guide/
 new Vue({
   el: '#app',
   data: {
-    message: 'Hello Vue.js!',
-
     apiServices: [
       {
         id: 0,
@@ -38,6 +36,7 @@ new Vue({
     nextTweetsPageQuery: ''
   },
   created: function() {
+    // Load Tweets as soon as the app is loaded.
     this.loadTweets();
   },
   computed: {

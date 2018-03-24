@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>MLH Localhost Tweet Scraper</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui" />
+
+    <link rel="stylesheet" type="text/css" href="main.css">
 
     <!--
         We'll use the Axios library to make HTTP requests to our API.
-        In a larger frontend app, we'd probably build our assets with
-        Browserify or Webpack and call "require('axios')" to use this package.
+        In a larger frontend app, we'd build our assets with Browserify or
+        Webpack instead, and call "require('axios')" to use this package.
     -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
@@ -20,18 +23,45 @@
 </head>
 <body>
 
-<div id="app">
-    <p>{{ message }}</p>
-    <p>Current API: {{ currentApiService.name }} ({{ currentApiService.url }})</p>
-    <p @click="switchApiService">Switch API</p>
+<div id="about-sidebar">
+    <nav>
+        <span class="nav-item">
+            <a href="https://localhost.mlh.io/" target="_blank">
+                About MLH Localhost
+            </a>
+        </span>
+        <span class="nav-item">
+            <a href="/about">
+                About this app
+            </a>
+        </span>
+    </nav>
+</div>
+<div id="about-sidebar-spacer">
+    <!-- adjusts spacing on mobile for fixed-position header -->
+</div>
 
-    <p v-if="loadingTweets" >LOADING...</p>
-    <p v-else @click="loadTweets">Load more tweets</p>
+<div id="main-content">
+    <p>
+        People are talking about
+    </p>
+    <h2>
+        MLH Localhost
+    </h2>
 
-    <div>
-        <h3>Tweets</h3>
-        <div v-for="tweet in tweets">
-            {{ tweet }}
+    <div id="app">
+
+        <p>Current API: {{ currentApiService.name }} ({{ currentApiService.url }})</p>
+        <p @click="switchApiService">Switch API</p>
+
+        <p v-if="loadingTweets" >LOADING...</p>
+        <p v-else @click="loadTweets">Load more tweets</p>
+
+        <div>
+            <h3>Tweets</h3>
+            <div v-for="tweet in tweets">
+                {{ tweet }}
+            </div>
         </div>
     </div>
 </div>
