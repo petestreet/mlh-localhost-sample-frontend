@@ -11,8 +11,47 @@ Check out the guide here: https://vuejs.org/v2/guide/
 */
 
 Vue.component('tweet', {
-  props: ['data'],
-  template: '<p>Created: {{ data.created_at }}</p>'
+  props: {
+    data: Object,
+  },
+  computed: {
+    dateFromNow: function() {
+      // Source for this function:
+      // https://stackoverflow.com/a/3177838/2865122
+      var seconds = Math.floor((new Date() - Date.parse(this.data.created_at)) / 1000);
+      var interval = Math.floor(seconds / 31536000);
+
+      if (interval > 1) {
+        return interval + " years";
+      }
+      interval = Math.floor(seconds / 2592000);
+      if (interval > 1) {
+        return interval + " months";
+      }
+      interval = Math.floor(seconds / 86400);
+      if (interval > 1) {
+        return interval + " days";
+      }
+      interval = Math.floor(seconds / 3600);
+      if (interval > 1) {
+        return interval + " hours";
+      }
+      interval = Math.floor(seconds / 60);
+      if (interval > 1) {
+        return interval + " minutes";
+      }
+      return Math.floor(seconds) + " seconds";
+    }
+  },
+  template:
+    '<div class="tweet">' +
+    '<div class="tweet-time-ago">' +
+    '{{ dateFromNow }} ago' +
+    '</div>' +
+    '<div class="tweet-content">' +
+    '{{ data.text }}' +
+    '</div>' +
+    '</div>'
 });
 
 new Vue({

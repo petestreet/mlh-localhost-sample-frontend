@@ -2,6 +2,7 @@ html, body {
     margin: 0;
     height: 100%;
     font-size: 18px;
+    font-family: 'Roboto Slab', serif;
 }
 
 #app {
@@ -24,11 +25,15 @@ html, body {
     position: fixed;
     z-index: 1;
 
+    padding-top: 2rem;
     text-align: center;
     border-right: 1px solid lightgray;
     border-bottom: none;
     float: left;
     margin-right: 1rem;
+}
+#about-sidebar-spacer {
+    display: none;
 }
 #about-sidebar-inner {
     padding: 1rem;
@@ -92,6 +97,7 @@ html, body {
     #about-sidebar-spacer {
         /* Note: this must be the same height as #about-sidebar */
         height: 80px;
+        display: block;
     }
     #about-sidebar .nav-item {
         display: inline-block;
