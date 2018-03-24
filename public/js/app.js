@@ -19,7 +19,7 @@ new Vue({
       {
         id: 0,
         name: 'Node.js',
-        url: 'https://mlh-localhost-sample-node.herokuapp.com/',
+        url: 'https://mlh-localhost-sample-node.herokuapp.com',
         selected: true
       },
       {
