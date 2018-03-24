@@ -10,6 +10,11 @@ Check out the guide here: https://vuejs.org/v2/guide/
 
 */
 
+Vue.component('tweet', {
+  props: ['data'],
+  template: '<p>Created: {{ data.created_at }}</p>'
+});
+
 new Vue({
   el: '#app',
   data: {
@@ -36,8 +41,8 @@ new Vue({
     nextTweetsPageQuery: ''
   },
   created: function() {
-    // Load Tweets as soon as the app is loaded.
-    this.loadTweets();
+    // Load Tweets as soon as the app starts up.
+    // this.loadTweets();
   },
   computed: {
     currentApiService: function() {

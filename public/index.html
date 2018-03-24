@@ -23,48 +23,62 @@
 </head>
 <body>
 
-<div id="about-sidebar">
-    <nav>
-        <span class="nav-item">
-            <a href="https://localhost.mlh.io/" target="_blank">
-                About MLH Localhost
-            </a>
-        </span>
-        <span class="nav-item">
-            <a href="/about">
-                About this app
-            </a>
-        </span>
-    </nav>
-</div>
-<div id="about-sidebar-spacer">
-    <!-- adjusts spacing on mobile for fixed-position header -->
-</div>
+<div id="app">
+    <div id="about-sidebar">
+        <div id="about-sidebar-inner">
+            <nav>
+                <span class="nav-item">
+                    <a href="https://localhost.mlh.io/" target="_blank">
+                        About MLH Localhost
+                    </a>
+                </span>
+                <span class="nav-item">
+                    <a href="/about">
+                        About this app
+                    </a>
+                </span>
+                <span class="nav-item">
+                    Current API: {{ currentApiService.name }}
+                    <span @click="switchApiService">
+                        Switch API
+                    </span>
+                </span>
+            </nav>
+        </div>
+    </div>
+    <div id="about-sidebar-spacer">
+        <!-- adjusts spacing on mobile for fixed-position header -->
+    </div>
 
-<div id="main-content">
-    <p>
-        People are talking about
-    </p>
-    <h2>
-        MLH Localhost
-    </h2>
-
-    <div id="app">
-
-        <p>Current API: {{ currentApiService.name }} ({{ currentApiService.url }})</p>
-        <p @click="switchApiService">Switch API</p>
-
-        <p v-if="loadingTweets" >LOADING...</p>
-        <p v-else @click="loadTweets">Load more tweets</p>
-
-        <div>
-            <h3>Tweets</h3>
-            <div v-for="tweet in tweets">
-                {{ tweet }}
+    <div id="main-content">
+        <div id="main-content-inner">
+            <div class="title-wrap">
+                <p class="title-before">
+                    People are talking about
+                </p>
+                <h1 class="title-main">
+                    MLH Localhost
+                </h1>
             </div>
+
+            <div>
+                <div v-for="tweet in tweets">
+                    <tweet :data="tweet"></tweet>
+                </div>
+            </div>
+
+            <p class="load-button-wrap">
+            <span v-if="loadingTweets" class="load-button">
+                Loading tweets...
+            </span>
+                <span v-else @click="loadTweets" class="load-button">
+                Load more tweets
+            </span>
+            </p>
         </div>
     </div>
 </div>
+
 
 <!-- include our custom VueJS code -->
 <script src="js/app.js"></script>
