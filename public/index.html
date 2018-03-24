@@ -71,10 +71,10 @@
                 </div>
             </div>
 
-            <p class="load-button-wrap">
-            <span v-if="loadingTweets" class="load-button">
-                Loading tweets...
-            </span>
+            <p v-if="hasMoreTweets" class="load-button-wrap">
+                <span v-if="loadingTweets" class="load-button">
+                    Loading tweets...
+                </span>
                 <span v-else @click="loadTweets" class="load-button">
                 Load more tweets
             </span>

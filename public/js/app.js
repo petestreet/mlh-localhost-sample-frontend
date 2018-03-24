@@ -41,6 +41,12 @@ Vue.component('tweet', {
         return interval + ' minutes';
       }
       return Math.floor(seconds) + ' seconds';
+    },
+    tweetSourceLink: function() {
+      return 'https://twitter.com/' +
+        this.data.user.screen_name +
+        '/status/' +
+        this.data.id_str;
     }
   },
   methods: {
@@ -52,12 +58,19 @@ Vue.component('tweet', {
   },
   template:
     '<div class="tweet">' +
-    '<div class="tweet-time-ago">' +
-    '{{ dateFromNow }} ago' +
-    '</div>' +
-    '<div class="tweet-content">' +
-    '{{ parseURLs(data.text) }}' +
-    '</div>' +
+      '<div class="tweet-time-ago">' +
+        '<a target="_blank" :href="tweetSourceLink">' +
+          '{{ dateFromNow }} ago' +
+        '</a>' +
+      '</div>' +
+      '<div class="tweet-content">' +
+        '{{ parseURLs(data.text) }}' +
+        '<div v-if="data.extended_entities && data.extended_entities.media">' +
+          '<div v-for="(media, idx) in data.extended_entities.media">' +
+            '<img v-if="media.type === \'photo\'" class="tweet-image" :class="{ \'tweet-image-multiple\': idx >= 1 }" :src="media.media_url_https" />' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
     '</div>'
 });
 
@@ -84,7 +97,8 @@ new Vue({
     tweets: [],
 
     loadingTweets: false,
-    nextTweetsPageQuery: ''
+    nextTweetsPageQuery: '',
+    hasMoreTweets: true
   },
   created: function() {
     // Load Tweets as soon as the app starts up.
@@ -143,7 +157,14 @@ new Vue({
             });
           }
 
-          self.nextTweetsPageQuery = response.data.search_metadata.next_results || '';
+          var nextQuery = response.data.search_metadata.next_results;
+          if (nextQuery) {
+            self.nextTweetsPageQuery = nextQuery;
+          } else {
+            self.nextTweetsPageQuery = '';
+            self.hasMoreTweets = false;
+          }
+
           self.loadingTweets = false;
         })
         .catch(function() {
