@@ -19,7 +19,7 @@ new Vue({
       {
         id: 0,
         name: 'Node.js',
-        url: 'nodeURL',
+        url: 'http://localhost:3001',
         selected: true
       },
       {
@@ -28,7 +28,16 @@ new Vue({
         url: 'railsURL',
         selected: false
       }
-    ]
+      // TODO: local server URLs as well
+    ],
+
+    tweets: [],
+
+    loadingTweets: false,
+    nextTweetsPageQuery: ''
+  },
+  created: function() {
+    this.loadTweets();
   },
   computed: {
     currentApiService: function() {
@@ -62,14 +71,32 @@ new Vue({
       nextService.selected = true;
       currentService.selected = false;
     },
-    callAPI: function() {
+    loadTweets: function() {
       // GET request from thrid-party API
+
+      var self = this;
+      self.loadingTweets = true;
+
       axios({
         method:'get',
-        url:'https://jsonplaceholder.typicode.com/posts/1'
+        url: this.currentApiService.url + '/tweets',
+        params: {
+          searchQuery: this.nextTweetsPageQuery
+        }
       })
         .then(function(response) {
-          console.log('response: ', response);
+          var newTweets = response.data.statuses;
+          if (newTweets) {
+            newTweets.forEach(function(tweet) {
+              self.tweets.push(tweet);
+            });
+          }
+
+          self.nextTweetsPageQuery = response.data.search_metadata.next_results || '';
+          self.loadingTweets = false;
+        })
+        .catch(function() {
+          self.loadingTweets = false;
         });
     }
   }

@@ -22,9 +22,18 @@
 
 <div id="app">
     <p>{{ message }}</p>
-    <p @click="callAPI">Make HTTP request</p>
     <p>Current API: {{ currentApiService.name }} ({{ currentApiService.url }})</p>
     <p @click="switchApiService">Switch API</p>
+
+    <p v-if="loadingTweets" >LOADING...</p>
+    <p v-else @click="loadTweets">Load more tweets</p>
+
+    <div>
+        <h3>Tweets</h3>
+        <div v-for="tweet in tweets">
+            {{ tweet }}
+        </div>
+    </div>
 </div>
 
 <!-- include our custom VueJS code -->
