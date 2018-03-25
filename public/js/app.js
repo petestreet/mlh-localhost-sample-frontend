@@ -22,25 +22,25 @@ Vue.component('tweet', {
       var interval = Math.floor(seconds / 31536000);
 
       if (interval > 1) {
-        return interval + ' years';
+        return interval + ' ' + 'years';
       }
       interval = Math.floor(seconds / 2592000);
       if (interval > 1) {
-        return interval + ' months';
+        return interval + ' ' + 'months';
       }
       interval = Math.floor(seconds / 86400);
       if (interval >= 1) {
         return interval + ' ' + (interval === 1 ? 'day' : 'days');
       }
       interval = Math.floor(seconds / 3600);
-      if (interval > 1) {
-        return interval + ' hours';
+      if (interval >= 1) {
+        return interval + ' ' + (interval === 1 ? 'hour' : 'hours');
       }
       interval = Math.floor(seconds / 60);
-      if (interval > 1) {
-        return interval + ' minutes';
+      if (interval >= 1) {
+        return interval + ' ' + (interval === 1 ? 'minute' : 'minutes');
       }
-      return Math.floor(seconds) + ' seconds';
+      return Math.floor(seconds) + ' ' + 'seconds';
     },
     tweetSourceLink: function() {
       return 'https://twitter.com/' +
@@ -77,22 +77,12 @@ Vue.component('tweet', {
 new Vue({
   el: '#app',
   data: {
-    apiServices: [
-      {
-        id: 0,
-        name: 'Node.js',
-        url: 'https://mlh-localhost-sample-node.herokuapp.com',
-        selected: true
-      },
-      {
-        id: 1,
-        name: 'Rails',
-        url: 'railsURL',
-        selected: false
-      }
-      // TODO: local server URLs as well:
-      // http://localhost:3001
-    ],
+
+    // You can change this URL to your own localhost server.
+    apiService: {
+      name: 'Node.js Server',
+      url: 'https://mlh-localhost-sample-node.herokuapp.com'
+    },
 
     tweets: [],
 
@@ -104,38 +94,7 @@ new Vue({
     // Load Tweets as soon as the app starts up.
     this.loadTweets();
   },
-  computed: {
-    currentApiService: function() {
-      return this.apiServices.find(function(service) {
-        return service.selected === true;
-      });
-    }
-  },
   methods: {
-    switchApiService: function() {
-      // This method cycles through our array of API services,
-      // so you're free to add your own service in addition to
-      // the ones listed above.
-
-      // Get the API service that's currently in use.
-      var currentService =
-        this.apiServices.find(function(service) {
-          return service.selected === true;
-        });
-
-      // Find the next service according to the incrementing id field.
-      // Loop back to the first one if we're at the end of the array.
-      var nextServiceId = (currentService.id + 1) % this.apiServices.length;
-
-      // Select the next service, and deselect the current one.
-      var nextService =
-        this.apiServices.find(function(service) {
-          return service.id === nextServiceId;
-        });
-
-      nextService.selected = true;
-      currentService.selected = false;
-    },
     loadTweets: function() {
       // GET request from thrid-party API
 
@@ -144,7 +103,7 @@ new Vue({
 
       axios({
         method:'get',
-        url: this.currentApiService.url + '/tweets',
+        url: this.apiService.url + '/tweets',
         params: {
           searchQuery: this.nextTweetsPageQuery
         }
