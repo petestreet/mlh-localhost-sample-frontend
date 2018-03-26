@@ -8,9 +8,21 @@ A sample application that gets Tweets from a backend application and displays th
     
     `git clone git@github.com:petestreet/mlh-localhost-sample-frontend.git`
 
-2. Open `public/index.html` with your web browser
+2. Open the `public` directory:
 
-3. That's it!
+    `cd public`
+
+3. Run the `index.html` with a local webserver:
+
+    * If you already have Python installed, run `python -m SimpleHTTPServer 63342`
+    
+    * If you don't have Python, you can run it in two steps via Node:
+        
+        1. `npm install http-server -g`
+        
+        2. `http-server -p 63342`
+        
+    * Note that `63342` is the local port that the server application allows by default.
 
 This is just a static website, and by default it connects to the sample server application that hits the Twitter API.
 
