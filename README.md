@@ -23,12 +23,14 @@ A sample application that gets Tweets from a backend application and displays th
         2. `http-server -p 3000`
         
     * Note that `3000` is the local port that the server application allows by default.
+    
+4. Follow the [setup instructions](https://github.com/petestreet/mlh-localhost-sample-node#setup) for running a local backend server.
 
 This is just a static website, and by default it connects to the sample server application that hits the Twitter API.
 
 For more info on the server application, check out its [git repository](https://github.com/petestreet/mlh-localhost-sample-node).
 
-If you run the server locally, you'll have to change the URL that this frontend app connects to so it matches your local instance (hint: look for it in `public/js/app.js`).
+When you run the server locally, you'll have to change the URL that this frontend app connects to so it matches your local instance (hint: look for it in `public/js/app.js`).
 
 ### More details
 
